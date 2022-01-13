@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserList = props => {
+const Table = ({tableData}) => {
     
 
 
@@ -14,7 +14,7 @@ const UserList = props => {
           </tr>
           </thead>
           <tbody>
-        {props.users.map((user, id) => <tr key={id}>
+        {tableData.map((user, id) => <tr key={id}>
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.zipcode}</td>
@@ -24,4 +24,4 @@ const UserList = props => {
     )
 }
 
-export default UserList;
+export default Table;

@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import AddUser from "./components/AddUser";
-import UserList from "./components/UserList"
+import Form from "./components/Form";
+import Table from "./components/Table"
+
+const initialFormData = {
+    name: "",
+    email: "",
+    address: {
+        zipcode: ""
+    }
+}
 
 function App() {
-    const [enteredUser, setEnteredUser] = useState([]);
+    
+    const [formData, setFormData] = useState(initialFormData);
+    const [tableData, setTableData] = useState([])
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -18,26 +28,34 @@ function App() {
                     zipcode: responseData[key].address.zipcode
                 })
             }
-            setEnteredUser(loadedUsers);
+            setTableData(loadedUsers);
         
         } catch (error) {
-            console.log(`api call error`, error)
+            console.error(`api call error`, error)
         }
         };
         fetchUsers();
     }, [])
      
-    
-
-    const userHandler = (uName, uEmail, uZipCode) => {
-        setEnteredUser((prev) => {return [...prev, {name: uName, email: uEmail, zipcode: uZipCode, id: Math.floor(Math.random()*1000)}]});
-
+    const changeHandler = e => {
+        if(e.target.id === "zipcode") {
+            setFormData({...formData, address: {
+                [e.target.id]: e.target.value
+            }})
+        } else setFormData({...formData, [e.target.id]: e.target.value})
     }
+
+    const submitHandler = e => {
+        e.preventDefault();
+        setTableData([formData, ...tableData]);
+    }
+
+    
 
   return (
       <>
-      <AddUser onAddUser={userHandler}/>
-      <UserList users={enteredUser}/>
+      <Form onChange={changeHandler} onSubmit={submitHandler} formData={formData}/>
+      <Table tableData={tableData}/>
       </>
   )
 }
