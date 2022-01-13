@@ -10,7 +10,7 @@ const Form = ({onChange, formData, onSubmit}) => {
             <label htmlFor="name">Email</label>
             <input id="email" type="email" onChange={onChange} value={formData.email}/>
             <label htmlFor="name">Zip Code</label>
-            <input id="zipcode" type="number" onChange={onChange} value={formData.zipcode}/>
+            <input id="zipcode" type="number" onChange={onChange} value={formData.address.zipcode}/>
             <button type="submit">Add User</button>
         </form>
     )
