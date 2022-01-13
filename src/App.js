@@ -47,6 +47,7 @@ function App() {
     const handleSubmit = e => {
         e.preventDefault();
         setTableData([formData, ...tableData]);
+        setFormData(initialFormData);
     }
 
 
